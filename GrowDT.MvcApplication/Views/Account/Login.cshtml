@@ -1,0 +1,25 @@
+﻿@model GrowDT.MvcApplication.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+@using (Html.BeginForm(new { ViewBag.ReturnUrl }))
+{
+    @Html.ValidationMessageFor(m => m.Username)<br />
+    @Html.ValidationMessageFor(m => m.Password)
+    @Html.ValidationSummary(true)
+
+    <div class="control-group">
+        @Html.TextBoxFor(m => m.Username, new { @name = "UserName", @placeholder = "用户名" })
+    </div>
+    <div class="control-group">
+        @Html.PasswordFor(m => m.Password, new { @name = "Password", @placeholder = "密码" })
+
+    </div>
+    <div class="control-group ">
+        <span class="fr">
+            <button class="sign" type="submit">登录</button>
+        </span>
+    </div>
+}
