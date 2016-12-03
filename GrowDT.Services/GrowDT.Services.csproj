@@ -41,10 +41,11 @@
   <ItemGroup>
     <Compile Include="GrowDTServiceModule.cs" />
     <Compile Include="Implementations\UserService.cs" />
+    <Compile Include="Interfaces\IUserAuthorityService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
-    <Compile Include="Messaging\UserService\AddUserRequest.cs" />
-    <Compile Include="Messaging\UserService\CheckLoginRequest.cs" />
-    <Compile Include="Messaging\UserService\CheckLoginResponse.cs" />
+    <Compile Include="Messaging\IUserService\AddUserRequest.cs" />
+    <Compile Include="Messaging\IUserAuthorityService\CheckLoginRequest.cs" />
+    <Compile Include="Messaging\IUserAuthorityService\CheckLoginResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceModels\UserModel.cs" />
   </ItemGroup>
@@ -58,6 +59,7 @@
       <Name>GrowDT</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -4,12 +4,13 @@ using GrowDT.Application;
 using GrowDT.Domain;
 using GrowDT.Models.Entities;
 using GrowDT.Services.Interfaces;
-using GrowDT.Services.Messaging.UserService;
+using GrowDT.Services.Messaging.IUserAuthorityService;
+using GrowDT.Services.Messaging.IUserService;
 using GrowDT.Services.ServiceModels;
 
 namespace GrowDT.Services.Implementations
 {
-    public class UserService : IUserService
+    public class UserService :IUserAuthorityService, IUserService
     {
         //private readonly IUserRepository _userRepository;
         private readonly IRepository<User, int> _userRepository;

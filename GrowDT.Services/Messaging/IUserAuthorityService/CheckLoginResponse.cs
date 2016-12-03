@@ -1,7 +1,7 @@
 ﻿using GrowDT.Application.Services.Dto;
 using GrowDT.Services.ServiceModels;
 
-namespace GrowDT.Services.Messaging.UserService
+namespace GrowDT.Services.Messaging.IUserAuthorityService
 {
     public class CheckLoginResponse : IResponseDto
     {

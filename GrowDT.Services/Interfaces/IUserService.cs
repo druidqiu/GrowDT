@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using GrowDT.Application.Services;
-using GrowDT.Services.Messaging.UserService;
+using GrowDT.Services.Messaging.IUserService;
 using GrowDT.Services.ServiceModels;
 
 namespace GrowDT.Services.Interfaces
@@ -9,7 +9,5 @@ namespace GrowDT.Services.Interfaces
     {
         void AddUser(AddUserRequest request);
         IEnumerable<UserModel> GetUsers();
-
-        CheckLoginResponse CheckLogin(CheckLoginRequest request);
     }
 }

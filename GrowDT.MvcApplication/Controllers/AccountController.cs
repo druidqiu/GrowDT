@@ -3,19 +3,19 @@ using GrowDT.Application;
 using GrowDT.MvcApplication.ViewModels;
 using GrowDT.MvcHelper.Authorization;
 using GrowDT.Services.Interfaces;
-using GrowDT.Services.Messaging.UserService;
+using GrowDT.Services.Messaging.IUserAuthorityService;
 
 namespace GrowDT.MvcApplication.Controllers
 {
     public class AccountController : Controller
     {
         private readonly IAuthProvider _authProvider;
-        private readonly IUserService _userService;
+        private readonly IUserAuthorityService _userAuthorityService;
 
-        public AccountController(IAuthProvider authProvider, IUserService userService)
+        public AccountController(IAuthProvider authProvider, IUserAuthorityService userAuthorityService)
         {
             _authProvider = authProvider;
-            _userService = userService;
+            _userAuthorityService = userAuthorityService;
         }
 
         [AllowAnonymous]
@@ -39,7 +39,7 @@ namespace GrowDT.MvcApplication.Controllers
             if (ModelState.IsValid)
             {
                 var checkRequest = new CheckLoginRequest {Username = model.Username, Password = model.Password};
-                var checkResponse = _userService.CheckLogin(checkRequest);
+                var checkResponse = _userAuthorityService.CheckLogin(checkRequest);
                 if (checkResponse.UserValid)
                 {
                     _authProvider.Authenticate(model.Username);

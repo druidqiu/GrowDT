@@ -1,6 +1,6 @@
 ﻿using GrowDT.Application.Services.Dto;
 
-namespace GrowDT.Services.Messaging.UserService
+namespace GrowDT.Services.Messaging.IUserAuthorityService
 {
     public class CheckLoginRequest : IRequestDto
     {
