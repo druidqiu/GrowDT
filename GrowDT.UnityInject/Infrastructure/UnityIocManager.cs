@@ -7,7 +7,7 @@ using Microsoft.Practices.Unity.InterceptionExtension;
 
 namespace GrowDT.UnityInject.Infrastructure
 {
-    public class UnityIocManager: IIocManager
+    public class UnityIocManager : IIocManager
     {
         private readonly IUnityContainer _unityContainer;
         private readonly InjectionMember[] _interceptionInjectionMembers;
@@ -24,6 +24,9 @@ namespace GrowDT.UnityInject.Infrastructure
 
         public void RegisterType<T, TImp>(DependencyLifeStyle liftStyle) where TImp : T
         {
+            if (IsRegistered<T>())
+                return;
+
             if (liftStyle == DependencyLifeStyle.Singleton)
             {
                 _unityContainer.RegisterType<T, TImp>(new ContainerControlledLifetimeManager());
@@ -36,6 +39,9 @@ namespace GrowDT.UnityInject.Infrastructure
 
         public void RegisterType(Type tType, Type impType, DependencyLifeStyle liftStyle)
         {
+            if (IsRegistered(tType))
+                return;
+
             if (liftStyle == DependencyLifeStyle.Singleton)
             {
                 _unityContainer.RegisterType(tType, impType, new ContainerControlledLifetimeManager());
@@ -49,7 +55,7 @@ namespace GrowDT.UnityInject.Infrastructure
         public void RegisterType(Assembly assembly)
         {
             _unityContainer.RegisterTypes(AllClasses.FromAssemblies(assembly),
-                WithMappings.FromMatchingInterface,
+                WithMappings.FromAllInterfaces,
                 WithName.Default,
                 WithLifetime.Transient);
         }
@@ -57,13 +63,16 @@ namespace GrowDT.UnityInject.Infrastructure
         public void RegisterType(Assembly assembly, Func<Type, bool> predicate)
         {
             _unityContainer.RegisterTypes(AllClasses.FromAssemblies(assembly).Where(predicate),
-                WithMappings.FromMatchingInterface,
+                WithMappings.FromAllInterfaces,
                 WithName.Default,
                 WithLifetime.Transient);
         }
 
-        public void RegisterInterceptionType<T, TImp>(DependencyLifeStyle liftStyle) where TImp: T
+        public void RegisterInterceptionType<T, TImp>(DependencyLifeStyle liftStyle) where TImp : T
         {
+            if (IsRegistered<T>())
+                return;
+
             if (liftStyle == DependencyLifeStyle.Singleton)
             {
                 _unityContainer.RegisterType<T, TImp>(new ContainerControlledLifetimeManager(), _interceptionInjectionMembers);
@@ -76,6 +85,9 @@ namespace GrowDT.UnityInject.Infrastructure
 
         public void RegisterInterceptionType(Type tType, Type impType, DependencyLifeStyle liftStyle)
         {
+            if (IsRegistered(tType))
+                return;
+
             if (liftStyle == DependencyLifeStyle.Singleton)
             {
                 _unityContainer.RegisterType(tType, impType, new ContainerControlledLifetimeManager(), _interceptionInjectionMembers);
@@ -89,7 +101,7 @@ namespace GrowDT.UnityInject.Infrastructure
         public void RegisterInterceptionType(Assembly assembly)
         {
             _unityContainer.RegisterTypes(AllClasses.FromAssemblies(assembly),
-                WithMappings.FromMatchingInterface,
+                WithMappings.FromAllInterfaces,
                 WithName.Default,
                 WithLifetime.Transient, t => _interceptionInjectionMembers);
         }
@@ -97,7 +109,7 @@ namespace GrowDT.UnityInject.Infrastructure
         public void RegisterInterceptionType(Assembly assembly, Func<Type, bool> predicate)
         {
             _unityContainer.RegisterTypes(AllClasses.FromAssemblies(assembly).Where(predicate),
-                WithMappings.FromMatchingInterface,
+                WithMappings.FromAllInterfaces,
                 WithName.Default,
                 WithLifetime.Transient, t => _interceptionInjectionMembers);
         }
@@ -105,6 +117,16 @@ namespace GrowDT.UnityInject.Infrastructure
         public T Resolve<T>()
         {
             return _unityContainer.Resolve<T>();
+        }
+
+        public bool IsRegistered<T>()
+        {
+            return _unityContainer.IsRegistered<T>();
+        }
+
+        public bool IsRegistered(Type typeToCheck)
+        {
+            return _unityContainer.IsRegistered(typeToCheck);
         }
     }
 }

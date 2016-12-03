@@ -14,5 +14,8 @@ namespace GrowDT.Dependency
         void RegisterInterceptionType(Type tType, Type impType, DependencyLifeStyle liftStyle);
         void RegisterInterceptionType(Assembly assembly);
         void RegisterInterceptionType(Assembly assembly, Func<Type, bool> predicate);
+
+        bool IsRegistered<T>();
+        bool IsRegistered(Type typeToCheck);
     }
 }
