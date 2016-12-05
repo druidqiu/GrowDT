@@ -12,7 +12,8 @@ namespace GrowDT.Services
 
         public override void Initialize()
         {
-            IocManager.RegisterInterceptionType(Assembly.Load("GrowDT.Services"), t => t.Name.EndsWith("Service"));
+            new AutoMappers.AutoMapperBootstrap().CreateMappings(Assembly.GetExecutingAssembly());
+            IocManager.RegisterInterceptionType(Assembly.GetExecutingAssembly(), t => t.Name.EndsWith("Service"));
         }
 
         public override void PostInitialize()

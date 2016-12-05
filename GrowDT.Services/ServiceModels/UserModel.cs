@@ -1,8 +1,10 @@
 ﻿using GrowDT.Application.Services.Dto;
+using GrowDT.Models.Entities;
 
 namespace GrowDT.Services.ServiceModels
 {
-    public class UserModel: IEntityDto
+    [AutoMappers.AutoMapFrom(typeof (User))]
+    public class UserModel : IEntityDto
     {
         public int Id { get; set; }
         public string Code { get; set; }

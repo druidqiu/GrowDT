@@ -50,6 +50,10 @@
     <Compile Include="ServiceModels\UserModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GrowDT.AutoMappers\GrowDT.AutoMappers.csproj">
+      <Project>{eb67771d-28c3-4757-8272-6acfbd3e9988}</Project>
+      <Name>GrowDT.AutoMappers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GrowDT.Models\GrowDT.Models.csproj">
       <Project>{d50d0ec1-9b7f-4d61-9a76-6d8d112af6e6}</Project>
       <Name>GrowDT.Models</Name>
